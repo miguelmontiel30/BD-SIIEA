@@ -50,7 +50,7 @@ CALL validacion_correo("luis.luis@gmail.com")$$
 DELIMITER $$
 CREATE PROCEDURE validacion_producto(CLAVE VARCHAR(25))
 BEGIN
-SELECT estado FROM productos where clave_producto = CLAVE;
+SELECT estado, id_usuario FROM productos where clave_producto = CLAVE;
 END$$
 
 SELECT estado FROM productos where clave_producto = "holamundo1235"$$
