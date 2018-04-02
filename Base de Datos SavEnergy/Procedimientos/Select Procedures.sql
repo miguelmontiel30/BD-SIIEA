@@ -58,3 +58,13 @@ SELECT estado FROM productos where clave_producto = "holamundo1235"$$
 CALL validacion_producto("holamundo123")$$
 
 
+                /*Validacion de correo*/
+
+DELIMITER $$
+CREATE PROCEDURE validacion_correo(correo VARCHAR(25))
+BEGIN
+select email from usuarios where email = correo;
+END$$
+
+CALL validacion_correo("luis.luis@gmail.com")$$
+
