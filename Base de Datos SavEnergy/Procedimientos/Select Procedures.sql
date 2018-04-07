@@ -33,17 +33,6 @@ END$$
 
 CALL select_tarifas("1A","Normal")$$
 
-
-				/*Validacion de correo*/
-
-DELIMITER $$
-CREATE PROCEDURE validacion_correo(CORREO VARCHAR(25))
-BEGIN
-SELECT * FROM usuarios where email = CORREO;
-END$$
-
-CALL validacion_correo("luis.luis@gmail.com")$$
-
 				
                 /*Validacion de producto*/
 
