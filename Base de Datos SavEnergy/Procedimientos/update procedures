@@ -1,1 +1,9 @@
+                /*Cambio de contraseñas*/
 
+DELIMITER $$
+CREATE PROCEDURE changed_pass(id_user VARCHAR(8), pass VARCHAR(15))
+BEGIN
+UPDATE usuarios SET contrasenia = pass WHERE usuarios.id_usuario = id_user;
+END$$
+
+CALL changed_pass("00000039","87654321")$$
