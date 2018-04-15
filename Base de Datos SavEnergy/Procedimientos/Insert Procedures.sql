@@ -74,7 +74,19 @@ END$$
 
 CALL insert_rangos(0,100,0.85,1,1,1)$$
 
+		/*Registro de productos*/
+DELIMITER $$
+CREATE PROCEDURE insert_producto(
+clave_p VARCHAR(20),
+estado VARCHAR(10),
+descripcion VARCHAR(50))
+BEGIN
+INSERT INTO productos(id_clave_producto,estado,descripcion) 
+values (clave_p,estado,descripcion);
+END$$                
 
+
+CALL insert_producto("holamundo123","Activo","Producto SavEnergy")$$
 
 		/*Registro de usuarios*/
         
@@ -83,32 +95,12 @@ DELIMITER $$
 CREATE PROCEDURE insert_user(
 in contra varchar(15), 
 correo varchar(25),
-usuario varchar(25),
-f_c date,
 id_t INT(2),
 id_c INT(2),
-T_USER varchar(15))
+id_clave varchar(15))
 BEGIN
-INSERT INTO usuarios(contrasenia,email,nombre,fecha_de_corte,id_tarifa,id_cuotas,tipo_usuario) 
-values (contra,correo,usuario,f_C,id_t,id_c,T_user);
-END$$                
+INSERT INTO usuarios(contrasenia,email,nombre,id_tarifa,id_cuotas,id_clave_producto,tipo_usuario) 
+values (contra,correo,"Nuevo Usuario",id_t,id_c,id_clave,"Cliente");
+END$$
 
-
-CALL insert_user("holaas","luis.luis@gmail.com","Nuevo Usuario",'2018-04-25',1,1,"Cliente")$$
-
-
-/*Registro de productos*/
-        
-DELIMITER $$
-
-CREATE PROCEDURE insert_producto(
-clave_p VARCHAR(20),
-estado VARCHAR(10),
-descripcion VARCHAR(50))
-BEGIN
-INSERT INTO productos(clave_producto,estado,descripcion) 
-values (clave_p,estado,descripcion);
-END$$                
-
-
-CALL insert_producto("holamundo123","Inactivo","Producto SavEnergy")$$
+CALL insert_user("123","luis.luis@gmail.com",01,01,"holamundo123")$$
