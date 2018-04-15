@@ -31,6 +31,11 @@ foreign key (id_nivel_consumo) references nivel_consumo(id_nivel_consumo),
 foreign key (id_cuotas) references cuotas(id_cuotas),
 foreign key (id_tarifa) references tarifas(id_tarifa));
 
+CREATE TABLE productos(
+id_clave_producto VARCHAR(15) NOT NULL PRIMARY KEY,
+estado VARCHAR(10) NULL,
+descripcion VARCHAR(50) NULL);
+
 CREATE TABLE usuarios(
 id_usuario INT(8) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
 foto MEDIUMBLOB NULL,
@@ -45,18 +50,13 @@ foreign key (id_clave_producto) references productos(id_clave_producto),
 foreign key (id_cuotas) references cuotas(id_cuotas),
 foreign key (id_tarifa) references tarifas(id_tarifa));
 
-CREATE TABLE productos(
-id_clave_producto VARCHAR(15) NOT NULL PRIMARY KEY,
-estado VARCHAR(10) NULL,
-descripcion VARCHAR(50) NULL);
-
 CREATE TABLE periodos_corte(
 id_periodo INT(8) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
 id_usuario INT(8) ZEROFILL NOT NULL,
 fecha_inicio DATE NOT NULL,
 fecha_corte DATE NOT NULL,
 lectura INT(6) NOT NULL,
-foreign key (id_clave_producto) references productos(id_clave_producto));
+foreign key (id_usuario) references usuarios(id_usuario));
 
 CREATE TABLE consumos(
 id_usuario INT(8) ZEROFILL NOT NULL,
