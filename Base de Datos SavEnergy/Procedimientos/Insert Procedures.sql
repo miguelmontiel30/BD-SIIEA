@@ -60,18 +60,19 @@ CALL insert_cuotas("Verano")$$
 DELIMITER $$
 
 CREATE PROCEDURE insert_rangos(
-in Rango int(4), 
-Precio FLOAT(4,4),
+in RANGO_IN INT(4),
+RANGO_TER INT(4),
+Precio FLOAT(3),
 N_Consumo INT(2),
 Cuota INT(2),
 Tarifa INT(2))
 BEGIN
-INSERT INTO rangos_consumo(rango,precio,id_nivel_consumo,id_cuotas,id_tarifa) 
-values (Rango,Precio,N_Consumo,Cuota,Tarifa);
+INSERT INTO rangos_consumo(rango_minimo,rango_maximo,precio,id_nivel_consumo,id_cuotas,id_tarifa) 
+values (Rango_IN,RANGO_TER,Precio,N_Consumo,Cuota,Tarifa);
 END$$                
 
 
-CALL insert_rangos(100,0.85,1,1,1)$$
+CALL insert_rangos(0,100,0.85,1,1,1)$$
 
 
 
