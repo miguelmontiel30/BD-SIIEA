@@ -39,7 +39,7 @@ CALL select_tarifas("1A","Normal")$$
 DELIMITER $$
 CREATE PROCEDURE validacion_producto(CLAVE VARCHAR(25))
 BEGIN
-SELECT estado, id_usuario FROM productos where clave_producto = CLAVE;
+SELECT estado FROM productos where clave_producto = CLAVE;
 END$$
 
 SELECT estado FROM productos where clave_producto = "holamundo1235"$$
