@@ -20,8 +20,8 @@ cuota VARCHAR(10) NOT NULL);
 
 CREATE TABLE rangos_consumo(
 id_rango INT(4) ZEROFILL AUTO_INCREMENT NOT NULL,
-rango_minimo INT(4) NOT NULL,
-rango_maximo INT(4) NOT NULL,
+rango_minimo INT(4) NULL,
+rango_maximo INT(4) NULL,
 precio FLOAT(3) NOT NULL,
 id_nivel_consumo INT(2) ZEROFILL NOT NULL,
 id_cuotas INT(2) ZEROFILL NOT NULL,
@@ -50,12 +50,12 @@ foreign key (id_clave_producto) references productos(id_clave_producto),
 foreign key (id_cuotas) references cuotas(id_cuotas),
 foreign key (id_tarifa) references tarifas(id_tarifa));
 
-CREATE TABLE periodos_corte(
-id_periodo INT(8) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
+CREATE TABLE recibo(
+id_recibo INT(8) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
 id_usuario INT(8) ZEROFILL NOT NULL,
 fecha_inicio DATE NOT NULL,
 fecha_corte DATE NOT NULL,
-lectura INT(6) NOT NULL,
+lectura_anterior INT(6) NOT NULL,
 foreign key (id_usuario) references usuarios(id_usuario));
 
 CREATE TABLE consumos(
@@ -63,8 +63,6 @@ id_usuario INT(8) ZEROFILL NOT NULL,
 fecha DATE NOT NULL,
 volts FLOAT(4,4) NOT NULL,
 id_tipo_consumo INT(2) ZEROFILL NOT NULL,
-id_rango INT(4) ZEROFILL NULL,
-FOREIGN KEY (id_rango) references rangos_consumo(id_rango),
 FOREIGN KEY (id_usuario) references usuarios(id_usuario),
 FOREIGN KEY (id_tipo_consumo) references tipo_consumo(id_tipo_consumo));
 
