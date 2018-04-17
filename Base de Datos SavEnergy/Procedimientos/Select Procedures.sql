@@ -57,3 +57,14 @@ END$$
 
 CALL validacion_correo("luis.luis@gmail.com")$$
 
+
+			/* Selección de periodos del usuario */
+			
+DELIMITER $$
+CREATE PROCEDURE select_periodos(IN ID_USER INT(8))
+BEGIN
+SELECT recibo.fecha_inicio, recibo.fecha_corte FROM recibo WHERE id_usuario = ID_USER;
+END$$
+
+
+
