@@ -134,11 +134,9 @@ VALUES (ID_USER,Now(),FECHA_CORTE_U,0);
 END$$
 
 		/* Registro de Periodos al usuario */
-		
-CREATE PROCEDURE insert_recibo(IN ID_USER INT(8), FECHA_INICIO_U DATE, FECHA_CORTE_U DATE, LECTURA INT(6))
+DELIMITER $$		
+CREATE PROCEDURE insert_recibo(IN ID_USER INT(8), FECHA_INICIO_U DATE)
 BEGIN
-
-
-INSERT INTO recibo(recibo.id_usuario,recibo.fecha_inicio, recibo.fecha_corte, recibo.lectura_anterior)
-VALUES (ID_USER,FECHA_INICIO_U,FECHA_CORTE_U,LECTURA);
+INSERT INTO recibo(recibo.id_usuario,recibo.fecha_inicio, recibo.fecha_corte) 
+VALUES (ID_USER,FECHA_INICIO_U,DATE_ADD(FECHA_INICIO_U,INTERVAL 2 MONTH)); 
 END$$
