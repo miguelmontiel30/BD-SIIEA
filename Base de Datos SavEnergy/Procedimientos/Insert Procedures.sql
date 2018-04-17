@@ -104,3 +104,22 @@ values (contra,correo,"Nuevo Usuario",id_t,id_c,id_clave,"Cliente");
 END$$
 
 CALL insert_user("123","luis.luis@gmail.com",01,01,"holamundo123")$$
+
+		
+		/* Registro de Consumo Energía Electrica */
+DELIMITER $$
+CREATE PROCEDURE insert_consumo_electrica(IN ID INT(8),Volts Float(4))
+BEGIN
+INSERT INTO consumos(id_usuario,fecha,volts,id_tipo_consumo)
+VALUES (ID,Now(),Volts,01)
+END$$
+
+		/* Registro de Consumo Energía Electrica */
+
+
+DELIMITER $$
+CREATE PROCEDURE insert_consumo_sustentable(IN ID INT(8),Volts Float(4))
+BEGIN
+INSERT INTO consumos(id_usuario,fecha,volts,id_tipo_consumo)
+VALUES (ID,Now(),Volts,02)
+END$$
