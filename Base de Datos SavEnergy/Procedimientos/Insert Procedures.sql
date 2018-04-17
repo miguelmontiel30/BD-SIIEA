@@ -123,3 +123,12 @@ BEGIN
 INSERT INTO consumos(id_usuario,fecha,volts,id_tipo_consumo)
 VALUES (ID,Now(),Volts,02);
 END$$
+		
+		/* Registro de primer Periodo de corte */
+
+DELIMITER $$
+CREATE PROCEDURE insert_primer_recibo(IN ID_USER INT(8), FECHA_CORTE_U DATE)
+BEGIN
+INSERT INTO recibo(id_usuario,fecha_corte)
+VALUES (ID_USER,FECHA_CORTE_U);
+END$$
