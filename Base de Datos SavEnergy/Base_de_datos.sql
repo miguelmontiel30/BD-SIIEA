@@ -55,7 +55,6 @@ id_recibo INT(8) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
 id_usuario INT(8) ZEROFILL NOT NULL,
 fecha_inicio DATE NOT NULL,
 fecha_corte DATE NOT NULL,
-lectura_anterior INT(6) NOT NULL,
 foreign key (id_usuario) references usuarios(id_usuario));
 
 CREATE TABLE consumos(
@@ -66,5 +65,13 @@ id_tipo_consumo INT(2) ZEROFILL NOT NULL,
 FOREIGN KEY (id_usuario) references usuarios(id_usuario),
 FOREIGN KEY (id_tipo_consumo) references tipo_consumo(id_tipo_consumo));
 
+CREATE TABLE registro_kw(
+  id_recibo INT(8) ZEROFILL AUTO_INCREMENT NOT NULL,
+  kwh_registrados INT(8) ZEROFILL NOT NULL,
+  FOREIGN KEY (id_recibo) references recibo(id_recibo));
 
+CREATE TABLE registrototal_kw(
+  id_recibo INT(8) ZEROFILL NOT NULL,
+  total_consumido INT(8) ZEROFILL NOT NULL,
+  FOREIGN KEY (id_recibo) references recibo(id_recibo));
 
