@@ -13,15 +13,9 @@ END $$
 
 				/*Tabla Consumos*/
 
-DELIMITER $$ CREATE PROCEDURE select_consumo(user varchar(25))
+DELIMITER $$ CREATE PROCEDURE select_consumo(user varchar(25),FECHA_C DATE, TIPO INT(2))
 BEGIN
-SELECT * FROM consumo WHERE ;
-END$$
-
-DELIMITER $$
-CREATE PROCEDURE vista_alumnos()
-BEGIN
-SELECT *FROM vista_alumnos;
+SELECT * FROM consumos WHERE id_usuario = user and fecha = FECHA_C AND id_tipo_consumo = TIPO;
 END$$
 
 				/*Seleccion de Tarifas y Coutas*/
