@@ -60,20 +60,33 @@ CALL insert_cuotas("Verano")$$
 DELIMITER $$
 
 CREATE PROCEDURE insert_rangos(
-in Rango int(4), 
-Precio FLOAT(4,4),
+in RANGO_IN INT(4),
+RANGO_TER INT(4),
+Precio FLOAT(3),
 N_Consumo INT(2),
 Cuota INT(2),
 Tarifa INT(2))
 BEGIN
-INSERT INTO rangos_consumo(rango,precio,id_nivel_consumo,id_cuotas,id_tarifa) 
-values (Rango,Precio,N_Consumo,Cuota,Tarifa);
+INSERT INTO rangos_consumo(rango_minimo,rango_maximo,precio,id_nivel_consumo,id_cuotas,id_tarifa) 
+values (Rango_IN,RANGO_TER,Precio,N_Consumo,Cuota,Tarifa);
 END$$                
 
 
-CALL insert_rangos(100,0.85,1,1,1)$$
+CALL insert_rangos(0,100,0.85,1,1,1)$$
+
+		/*Registro de productos*/
+DELIMITER $$
+CREATE PROCEDURE insert_producto(
+clave_p VARCHAR(20),
+estado VARCHAR(10),
+descripcion VARCHAR(50))
+BEGIN
+INSERT INTO productos(id_clave_producto,estado,descripcion) 
+values (clave_p,estado,descripcion);
+END$$                
 
 
+CALL insert_producto("holamundo123","Activo","Producto SavEnergy")$$
 
 		/*Registro de usuarios*/
         
@@ -82,32 +95,48 @@ DELIMITER $$
 CREATE PROCEDURE insert_user(
 in contra varchar(15), 
 correo varchar(25),
-usuario varchar(25),
-f_c date,
 id_t INT(2),
 id_c INT(2),
-T_USER varchar(15))
+id_clave varchar(15))
 BEGIN
-INSERT INTO usuarios(contrasenia,email,nombre,fecha_de_corte,id_tarifa,id_cuotas,tipo_usuario) 
-values (contra,correo,usuario,f_C,id_t,id_c,T_user);
-END$$                
+INSERT INTO usuarios(contrasenia,email,nombre,id_tarifa,id_cuotas,id_clave_producto,tipo_usuario) 
+values (contra,correo,"Nuevo Usuario",id_t,id_c,id_clave,"Cliente");
+END$$
 
+CALL insert_user("123","luis.luis@gmail.com",01,01,"holamundo123")$$
 
-CALL insert_user("holaas","luis.luis@gmail.com","Nuevo Usuario",'2018-04-25',1,1,"Cliente")$$
-
-
-/*Registro de productos*/
-        
+		
+		/* Registro de Consumo Energía Electrica */
 DELIMITER $$
-
-CREATE PROCEDURE insert_producto(
-clave_p VARCHAR(20),
-estado VARCHAR(10),
-descripcion VARCHAR(50))
+CREATE PROCEDURE insert_consumo_electrica(IN ID INT(8),Volts Float(4))
 BEGIN
-INSERT INTO productos(clave_producto,estado,descripcion) 
-values (clave_p,estado,descripcion);
-END$$                
+INSERT INTO consumos(id_usuario,fecha,volts,id_tipo_consumo)
+VALUES (ID,Now(),Volts,01);
+END$$
+
+		/* Registro de Consumo Energía Electrica Sustentable */
 
 
-CALL insert_producto("holamundo123","Inactivo","Producto SavEnergy")$$
+DELIMITER $$
+CREATE PROCEDURE insert_consumo_sustentable(IN ID INT(8),Volts Float(4))
+BEGIN
+INSERT INTO consumos(id_usuario,fecha,volts,id_tipo_consumo)
+VALUES (ID,Now(),Volts,02);
+END$$
+		
+		/* Registro de primer Periodo de corte */
+
+DELIMITER $$
+CREATE PROCEDURE insert_primer_recibo(IN ID_USER INT(8), FECHA_CORTE_U DATE)
+BEGIN
+INSERT INTO recibo(recibo.id_usuario,recibo.fecha_inicio, recibo.fecha_corte,recibo.lectura_anterior)
+VALUES (ID_USER,Now(),FECHA_CORTE_U,0);
+END$$
+
+		/* Registro de Periodos al usuario */
+DELIMITER $$		
+CREATE PROCEDURE insert_recibo(IN ID_USER INT(8), FECHA_INICIO_U DATE)
+BEGIN
+INSERT INTO recibo(recibo.id_usuario,recibo.fecha_inicio, recibo.fecha_corte) 
+VALUES (ID_USER,FECHA_INICIO_U,DATE_ADD(FECHA_INICIO_U,INTERVAL 2 MONTH)); 
+END$$
